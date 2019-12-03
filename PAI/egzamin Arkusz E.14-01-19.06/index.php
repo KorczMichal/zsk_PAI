@@ -27,5 +27,33 @@ echo "<ul>";
   </select>
   <button type="submit" name="button">WYBIERZ</button>
 </form>
+<?php
+if (isset($_POST["towar"])) {
+switch ($_POST['towar']) {
+  case 'c':
+  $towar="Czekolada";
+    break;
+    case 'g':
+    $towar="Grześki";
+      break;
+      case 'b':
+      $towar="Baton";
+        break;
+
+}
+echo $towar;
+$connect= mysqli_connect('localhost','root',"","sklep_MK");
+$sql= "SELECT cena FROM `towary` WHERE nazwa = '$towar'";
+$result = mysqli_query($connect,$sql);
+$row=mysqli_fetch_assoc($result);
+$promocja = round($row['cena']*0.85,2);
+echo " ",$promocja;
+mysqli_close($connect);}
+
+
+
+
+
+ ?>
   </body>
 </html>
