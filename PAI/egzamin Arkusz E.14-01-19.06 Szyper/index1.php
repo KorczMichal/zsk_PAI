@@ -62,10 +62,11 @@ echo " ",$promocja;
 mysqli_close($connect);}
  ?>
  <hr>
- <form  action="./scripts/addBusiness.php" method="post">
+ <form  action="addBusiness.php" method="post">
    <input type="text" name="name" placeholder="Nazwa dostawcy"><br>
    <input type="text" name="address" placeholder="Adres"><br>
    <input type="submit" name="button" value="Dodaj dostawcę">
  </form>
+
   </body>
 </html>
