@@ -16,34 +16,45 @@ echo "<ul>";
     echo '<li>',$row["nazwa"],'</li>';
   }
 echo "<ul>";
-  mysqli_close($connect);
+
 ?>
 
 <form method="post">
   <select name="towar">
-    <option value="c">Czekolada</option>
+    <?php
+    $sql="SELECT `nazwa` FROM `towary`";
+    $result=mysqli_query($connect,$sql);
+
+    while($row = mysqli_fetch_assoc($result)){
+      echo  "<option value=\"$row[nazwa]\">$row[nazwa]</option>";
+    }
+    mysqli_close($connect);
+     ?>
+    <!-- <option value="c">Czekolada</option>
     <option value="g">Grześki</option>
-    <option value="b">Baton</option>
+    <option value="b">Baton</option> -->
   </select>
   <button type="submit" name="button">WYBIERZ</button>
 </form>
 <?php
 if (isset($_POST["towar"])) {
-switch ($_POST['towar']) {
-  case 'c':
-  $towar="Czekolada";
-    break;
-    case 'g':
-    $towar="Grześki";
-      break;
-      case 'b':
-      $towar="Baton";
-        break;
+  $towar= $_POST['towar'];
 
-}
+// switch ($_POST['towar']) {
+//   case 'c':
+//   $towar="Czekolada";
+//     break;
+//     case 'g':
+//     $towar="Grześki";
+//       break;
+//       case 'b':
+//       $towar="Baton";
+//         break;
+//
+// }
 echo $towar;
 $connect= mysqli_connect('localhost','root',"","sklep_MK");
-$sql= "SELECT cena FROM `towary` WHERE nazwa = '$towar'";
+$sql= "SELECT cena FROM `towary` WHERE nazwa = \"$towar\"";
 $result = mysqli_query($connect,$sql);
 $row=mysqli_fetch_assoc($result);
 $promocja = round($row['cena']*0.85,2);
